@@ -1,4 +1,5 @@
 import 'package:chat_app_1/constants/theme.dart';
+import 'package:chat_app_1/screens/group_screen.dart';
 import 'package:chat_app_1/widgets/tab_heading.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,8 @@ class TabBarDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          primaryColor: CustomTheme.primary, accentColor: CustomTheme.primary),
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -40,24 +43,6 @@ class TabBarDemo extends StatelessWidget {
                     heading: 'Calls',
                   ),
                 ),
-                // Padding(
-                //   padding: EdgeInsets.only(bottom: 10),
-                //   child: TabHeadingText(
-                //     heading: 'message',
-                //   ),
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(bottom: 10),
-                //   child: TabHeadingText(
-                //     heading: 'group',
-                //   ),
-                // ),
-                // Padding(
-                //   padding: EdgeInsets.only(bottom: 10),
-                //   child: TabHeadingText(
-                //     heading: 'calls',
-                //   ),
-                // ),
               ],
             ),
             title: const Text(
@@ -78,7 +63,7 @@ class TabBarDemo extends StatelessWidget {
           body: const TabBarView(
             children: [
               MessageScreen(),
-              Icon(Icons.directions_transit),
+              GroupScreen(),
               Icon(Icons.directions_bike),
             ],
           ),
