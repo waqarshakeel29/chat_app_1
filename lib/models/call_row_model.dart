@@ -1,8 +1,8 @@
 enum CallStatus {
-  MISSED,
-  INCOMING,
-  OUTGOING,
-  RECEIVED,
+  missed,
+  incoming,
+  outgoing,
+  received,
 }
 
 class CallRowModel {

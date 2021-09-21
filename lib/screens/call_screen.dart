@@ -1,6 +1,5 @@
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/models/call_row_model.dart';
-import 'package:chat_app_1/models/chat_person_row_model.dart';
 import 'package:flutter/material.dart';
 
 class CallScreen extends StatefulWidget {
@@ -22,21 +21,21 @@ class CallScreenState extends State<CallScreen> {
       list.add(CallRowModel(
         name: "Alex Dean",
         time: "3m ago",
-        callStatus: CallStatus.MISSED,
+        callStatus: CallStatus.missed,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
       list.add(CallRowModel(
         name: "Macy Mason",
         time: "Yesterday",
-        callStatus: CallStatus.RECEIVED,
+        callStatus: CallStatus.received,
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
       list.add(CallRowModel(
         name: "Waqas Shakeel",
         time: "24 July",
-        callStatus: CallStatus.RECEIVED,
+        callStatus: CallStatus.received,
         imageUrl:
             'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
       ));
@@ -74,10 +73,8 @@ class CallScreenState extends State<CallScreen> {
                         list[index].name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 18),
                       ),
                       const SizedBox(
                         height: 5,
@@ -85,11 +82,11 @@ class CallScreenState extends State<CallScreen> {
                       Row(
                         children: [
                           Icon(
-                            list[index].callStatus == CallStatus.RECEIVED
+                            list[index].callStatus == CallStatus.received
                                 ? Icons.call_received
                                 : Icons.call_missed,
                             size: 20,
-                            color: list[index].callStatus == CallStatus.RECEIVED
+                            color: list[index].callStatus == CallStatus.received
                                 ? Colors.green
                                 : Colors.red,
                           ),

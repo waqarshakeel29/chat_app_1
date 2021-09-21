@@ -3,25 +3,38 @@ import 'package:chat_app_1/screens/call_screen.dart';
 import 'package:chat_app_1/screens/group_screen.dart';
 import 'package:chat_app_1/widgets/tab_heading.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'screens/message_screen.dart';
 
 void main() {
   runApp(const TabBarDemo());
 }
 
-class TabBarDemo extends StatelessWidget {
+class TabBarDemo extends StatefulWidget {
   const TabBarDemo({Key? key}) : super(key: key);
 
   @override
+  State<TabBarDemo> createState() => _TabBarDemoState();
+}
+
+class _TabBarDemoState extends State<TabBarDemo> {
+  TextEditingController controller = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: CustomTheme.primary));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: CustomTheme.primary, accentColor: CustomTheme.primary),
+          primaryColor: CustomTheme.primary,
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(secondary: CustomTheme.primary)),
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            elevation: 0,
             toolbarHeight: 70,
             backgroundColor: CustomTheme.primary,
 
@@ -51,14 +64,34 @@ class TabBarDemo extends StatelessWidget {
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
             centerTitle: false,
-            actions: const [
-              Padding(
+            actions: [
+              const Padding(
                 padding: EdgeInsets.only(right: 15),
                 child: Icon(
                   Icons.search,
-                  size: 35,
+                  size: 28,
                 ),
-              )
+              ),
+              PopupMenuButton<String>(
+                onSelected: (String value) {
+                  switch (value) {
+                    case 'Profile':
+                      break;
+                    case 'Settings':
+                      break;
+                    case 'Logout':
+                      break;
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return {'Profile', 'Settings', 'Logout'}.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+              ),
             ],
           ),
           body: const TabBarView(

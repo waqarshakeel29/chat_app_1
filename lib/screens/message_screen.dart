@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:io';
-
-import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/models/chat_person_row_model.dart';
+import 'package:chat_app_1/screens/chat_screen.dart';
 import 'package:chat_app_1/widgets/chat_person_row.dart';
 import 'package:chat_app_1/widgets/status_list_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({Key? key}) : super(key: key);
@@ -63,8 +60,8 @@ class MessageScreenState extends State<MessageScreen> {
             child: ListView.builder(
                 // shrinkWrap: true,
                 // physics: NeverScrollableScrollPhysics(),
-                primary: false,
-                shrinkWrap: true,
+                // primary: false,
+                // shrinkWrap: true,
                 itemCount: list.length,
                 itemBuilder: (context, index) {
                   return ChatPersonRow(
@@ -73,6 +70,12 @@ class MessageScreenState extends State<MessageScreen> {
                     time: list[index].time,
                     imageUrl: list[index].imageUrl,
                     isRead: list[index].isRead,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChatScreen()));
+                    },
                   );
                 }),
           ),

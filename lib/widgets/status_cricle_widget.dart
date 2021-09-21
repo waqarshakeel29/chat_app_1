@@ -6,7 +6,7 @@ class StatusCircle extends StatelessWidget {
   final bool? isViewed;
   final String? imageUrl;
   final bool isOnline;
-  StatusCircle(
+  const StatusCircle(
       {Key? key,
       this.isViewed = false,
       this.imageUrl,

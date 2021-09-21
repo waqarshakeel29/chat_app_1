@@ -2,10 +2,6 @@
 
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/models/chat_group_row_model.dart';
-import 'package:chat_app_1/models/chat_person_row_model.dart';
-import 'package:chat_app_1/widgets/chat_person_row.dart';
-import 'package:chat_app_1/widgets/status_cricle_widget.dart';
-import 'package:chat_app_1/widgets/status_list_widget.dart';
 import 'package:flutter/material.dart';
 
 class GroupScreen extends StatefulWidget {
