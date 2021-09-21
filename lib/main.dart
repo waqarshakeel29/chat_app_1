@@ -7,17 +7,13 @@ import 'package:flutter/services.dart';
 import 'screens/message_screen.dart';
 
 void main() {
-  runApp(const TabBarDemo());
+  runApp(TabBarDemo());
 }
 
-class TabBarDemo extends StatefulWidget {
-  const TabBarDemo({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class TabBarDemo extends StatelessWidget {
+  TabBarDemo({Key? key}) : super(key: key);
 
-  @override
-  State<TabBarDemo> createState() => _TabBarDemoState();
-}
-
-class _TabBarDemoState extends State<TabBarDemo> {
   TextEditingController controller = TextEditingController();
 
   @override
