@@ -56,37 +56,27 @@ class MessageScreenState extends State<MessageScreen> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-      child: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints:
-              BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-          child: Column(
-            children: [
-              Flexible(
-                flex: 1,
-                child: StatusList(),
-              ),
-              Flexible(
-                flex: 7,
-                child: ListView.builder(
-                    // shrinkWrap: true,
-                    // physics: NeverScrollableScrollPhysics(),
-                    primary: false,
-                    shrinkWrap: true,
-                    itemCount: list.length,
-                    itemBuilder: (context, index) {
-                      return ChatPersonRow(
-                        name: list[index].name,
-                        lastMessage: list[index].lastMessage,
-                        time: list[index].time,
-                        imageUrl: list[index].imageUrl,
-                        isRead: list[index].isRead,
-                      );
-                    }),
-              ),
-            ],
+      child: Column(
+        children: [
+          SizedBox(height: 115, child: StatusList()),
+          Expanded(
+            child: ListView.builder(
+                // shrinkWrap: true,
+                // physics: NeverScrollableScrollPhysics(),
+                primary: false,
+                shrinkWrap: true,
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  return ChatPersonRow(
+                    name: list[index].name,
+                    lastMessage: list[index].lastMessage,
+                    time: list[index].time,
+                    imageUrl: list[index].imageUrl,
+                    isRead: list[index].isRead,
+                  );
+                }),
           ),
-        ),
+        ],
       ),
     );
   }

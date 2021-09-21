@@ -1,4 +1,5 @@
 import 'package:chat_app_1/constants/theme.dart';
+import 'package:chat_app_1/screens/call_screen.dart';
 import 'package:chat_app_1/screens/group_screen.dart';
 import 'package:chat_app_1/widgets/tab_heading.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class TabBarDemo extends StatelessWidget {
             children: [
               MessageScreen(),
               GroupScreen(),
-              Icon(Icons.directions_bike),
+              CallScreen(),
             ],
           ),
         ),
