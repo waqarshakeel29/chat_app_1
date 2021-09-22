@@ -62,11 +62,11 @@ class GroupScreenState extends State<GroupScreen> {
           shrinkWrap: true,
           itemCount: list.length,
           itemBuilder: (context, index) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: Card(
+            return Card(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -103,7 +103,7 @@ class GroupScreenState extends State<GroupScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: 8,
+                          height: 4,
                         ),
                         Text(
                           list[index].name,
@@ -116,7 +116,7 @@ class GroupScreenState extends State<GroupScreen> {
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: 4,
                         ),
                         Stack(
                             // alignment: FractionalOffset.center,

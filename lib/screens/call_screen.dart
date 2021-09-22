@@ -1,5 +1,6 @@
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/models/call_row_model.dart';
+import 'package:chat_app_1/widgets/call_row_widget.dart';
 import 'package:flutter/material.dart';
 
 class CallScreen extends StatefulWidget {
@@ -53,68 +54,11 @@ class CallScreenState extends State<CallScreen> {
           shrinkWrap: true,
           itemCount: list.length,
           itemBuilder: (context, index) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    radius: 28,
-                    backgroundImage: NetworkImage(list[index].imageUrl),
-                  ),
-                ),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        list[index].name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            list[index].callStatus == CallStatus.received
-                                ? Icons.call_received
-                                : Icons.call_missed,
-                            size: 20,
-                            color: list[index].callStatus == CallStatus.received
-                                ? Colors.green
-                                : Colors.red,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            list[index].time,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18, right: 8),
-                  child: Icon(
-                    Icons.call,
-                    color: CustomTheme.primary,
-                  ),
-                ),
-              ],
-            );
+            return CallRow(
+                name: list[index].name,
+                time: list[index].time,
+                imageUrl: list[index].imageUrl,
+                callStatus: list[index].callStatus);
           }),
     );
   }

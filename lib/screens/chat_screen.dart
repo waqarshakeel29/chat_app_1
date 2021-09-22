@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/models/chat_model.dart';
+import 'package:chat_app_1/widgets/receive_message_bubble.dart';
+import 'package:chat_app_1/widgets/send_message_bubble.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -24,9 +25,17 @@ class ChatScreenState extends State<ChatScreen> {
 
     for (var i = 0; i < 3; i++) {
       list.add(ChatModel(
+        name: "Alex Dean",
+        message: "hello",
+        time: "12:45 pm",
+        messageFrom: MessageFrom.me,
+        imageUrl:
+            'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
+      ));
+      list.add(ChatModel(
         name: "Macy Mason",
         message: "Wow, thats great. Wish you good luck brother.",
-        time: "now",
+        time: "12:45 pm",
         messageFrom: MessageFrom.notMe,
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
@@ -35,7 +44,7 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Alex Dean",
         message:
             "That perfect. I am going to get increment this month and im actually very excited!!!",
-        time: "2m ago",
+        time: "12:45 pm",
         messageFrom: MessageFrom.me,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
@@ -43,7 +52,7 @@ class ChatScreenState extends State<ChatScreen> {
       list.add(ChatModel(
         name: "Macy Mason",
         message: "Hi, I am fine. What about you? How's job going?",
-        time: "3m ago",
+        time: "12:45 pm",
         messageFrom: MessageFrom.notMe,
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
@@ -51,7 +60,7 @@ class ChatScreenState extends State<ChatScreen> {
       list.add(ChatModel(
         name: "Alex Dean",
         message: "Hello this is waqar. How are you?",
-        time: "15m ago",
+        time: "12:45 pm",
         messageFrom: MessageFrom.me,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
@@ -95,123 +104,20 @@ class ChatScreenState extends State<ChatScreen> {
               child: ListView.builder(
                   controller: scrollController,
                   reverse: true,
-                  // shrinkWrap: true,
-                  // physics: NeverScrollableScrollPhysics(),
-                  primary: false,
                   shrinkWrap: true,
+                  // physics: NeverScrollableScrollPhysics(),
+                  // primary: false,
+                  // shrinkWrap: true,
                   itemCount: list.length,
                   itemBuilder: (context, index) {
                     return list[index].messageFrom == MessageFrom.notMe
-                        ? Padding(
-                            padding: const EdgeInsets.only(bottom: 5, top: 5),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0, bottom: 8.0),
-                                  child: CircleAvatar(
-                                    radius: 10,
-                                    backgroundImage:
-                                        NetworkImage(list[index].imageUrl),
-                                  ),
-                                ),
-                                Container(
-                                    // height: 50,
-                                    constraints: BoxConstraints(maxWidth: 220),
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFFf5f6fa),
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                          bottomRight: Radius.circular(15),
-                                        )),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(list[index].message)),
-                                          Align(
-                                            alignment: Alignment.bottomRight,
-                                            child: Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 8.0),
-                                              child: Text(
-                                                list[index].time,
-                                                style: TextStyle(
-                                                    color: Colors.black54),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-                              ],
-                            ),
+                        ? ReceivedMessageBubble(
+                            message: list[index].message,
+                            time: list[index].time,
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(bottom: 5, top: 5),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  constraints: BoxConstraints(maxWidth: 220),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          color: CustomTheme.primary,
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(15),
-                                            topLeft: Radius.circular(15),
-                                            bottomRight: Radius.circular(15),
-                                          )),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  list[index].message,
-                                                  textAlign: TextAlign.left,
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                )),
-                                            Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 8.0),
-                                                child: Text(
-                                                  list[index].time,
-                                                  style: TextStyle(
-                                                      color: Colors.white70),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0, bottom: 8.0),
-                                  child: CircleAvatar(
-                                    radius: 10,
-                                    backgroundImage:
-                                        NetworkImage(list[index].imageUrl),
-                                  ),
-                                ),
-                              ],
-                            ),
+                        : SendMessageBubble(
+                            message: list[index].message,
+                            time: list[index].time,
                           );
                   }),
             ),
@@ -244,10 +150,10 @@ class ChatScreenState extends State<ChatScreen> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Write your reply...',
-                  contentPadding: EdgeInsets.only(left: 20.0),
+                  contentPadding: EdgeInsets.only(left: 20.0, right: 20.0),
                   hintStyle: TextStyle(
                     fontSize: 16.0,
-                    color: Color(0xffAEA4A3),
+                    color: Colors.black54,
                   ),
                 ),
                 textInputAction: TextInputAction.send,
