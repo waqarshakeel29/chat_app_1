@@ -143,7 +143,7 @@ class ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                  color: Color(0xFFf5f6fa),
+                  color: CustomTheme.light,
                   borderRadius: BorderRadius.all(Radius.circular(30))),
               child: TextField(
                 controller: messageController,

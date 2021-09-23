@@ -1,6 +1,7 @@
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/screens/call_screen.dart';
 import 'package:chat_app_1/screens/group_screen.dart';
+import 'package:chat_app_1/screens/sign_in_screen.dart';
 import 'package:chat_app_1/widgets/tab_heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +27,14 @@ class TabBarDemo extends StatelessWidget {
           primaryColor: CustomTheme.primary,
           colorScheme: ColorScheme.fromSwatch()
               .copyWith(secondary: CustomTheme.primary)),
-      home: DefaultTabController(
+      home: SignInScreen());
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: AppBar(
@@ -98,7 +106,9 @@ class TabBarDemo extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
+    
   }
+
 }
+
