@@ -2,22 +2,18 @@
 
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/main.dart';
-import 'package:chat_app_1/models/chat_model.dart';
-import 'package:chat_app_1/widgets/receive_message_bubble.dart';
-import 'package:chat_app_1/widgets/send_message_bubble.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  SignInScreenState createState() {
-    return SignInScreenState();
+  SignUpScreenState createState() {
+    return SignUpScreenState();
   }
 }
 
-class SignInScreenState extends State<SignInScreen> {
+class SignUpScreenState extends State<SignUpScreen> {
   ScrollController scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
 
@@ -48,7 +44,7 @@ class SignInScreenState extends State<SignInScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Sign In',
+                      'Sign Up',
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
@@ -79,7 +75,46 @@ class SignInScreenState extends State<SignInScreen> {
                         controller: messageController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Username or Email',
+                          hintText: 'Name',
+                          contentPadding:
+                              EdgeInsets.only(left: 20.0, right: 20.0),
+                          hintStyle: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                        textInputAction: TextInputAction.send,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.04,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1, color: CustomTheme.borderColor),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 10,
+                            offset: Offset(1, 7), // changes position of shadow
+                          ),
+                        ],
+                        color: CustomTheme.light,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Center(
+                      child: TextField(
+                        controller: messageController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Email',
                           contentPadding:
                               EdgeInsets.only(left: 20.0, right: 20.0),
                           hintStyle: TextStyle(
@@ -141,15 +176,10 @@ class SignInScreenState extends State<SignInScreen> {
                     padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
-                            ModalRoute.withName("/Home"));
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => HomeScreen()));
+                                builder: (context) => HomeScreen()));
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -161,7 +191,7 @@ class SignInScreenState extends State<SignInScreen> {
                         height: MediaQuery.of(context).size.height * 0.07,
                         child: Center(
                           child: Text(
-                            'SIGN IN',
+                            'SIGN UP',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -170,17 +200,6 @@ class SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.04,
-                  ),
-                  Text(
-                    'Forget Passowrd?',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: CustomTheme.primary,
                     ),
                   ),
                 ],
