@@ -34,6 +34,7 @@ class CallRowState extends State<CallRow> {
           padding: const EdgeInsets.all(8.0),
           child: CircleAvatar(
             radius: 28,
+            backgroundColor: CustomTheme.primary,
             backgroundImage: NetworkImage(widget.imageUrl),
           ),
         ),

@@ -3,7 +3,7 @@
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:flutter/material.dart';
 
-class ChatPersonRow extends StatefulWidget {
+class ChatRow extends StatefulWidget {
   final String name;
   final String lastMessage;
   final String time;
@@ -11,7 +11,7 @@ class ChatPersonRow extends StatefulWidget {
   final bool isRead;
   final VoidCallback onTap;
 
-  const ChatPersonRow(
+  const ChatRow(
       {Key? key,
       required this.name,
       required this.lastMessage,
@@ -22,12 +22,12 @@ class ChatPersonRow extends StatefulWidget {
       : super(key: key);
 
   @override
-  ChatPersonRowState createState() {
-    return ChatPersonRowState();
+  ChatRowState createState() {
+    return ChatRowState();
   }
 }
 
-class ChatPersonRowState extends State<ChatPersonRow> {
+class ChatRowState extends State<ChatRow> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -39,6 +39,7 @@ class ChatPersonRowState extends State<ChatPersonRow> {
             padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
               radius: 28,
+              backgroundColor: CustomTheme.primary,
               backgroundImage: NetworkImage(widget.imageUrl),
             ),
           ),

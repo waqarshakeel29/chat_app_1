@@ -34,6 +34,7 @@ class StatusCircle extends StatelessWidget {
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
                       radius: 28,
+                      backgroundColor: CustomTheme.primary,
                       backgroundImage: NetworkImage(imageUrl!),
                     ),
                   ),
