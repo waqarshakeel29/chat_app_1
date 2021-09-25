@@ -65,8 +65,8 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           title: const Text(
-            'All Chat',
-            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            'Gossip',
+            style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
           ),
           // leading: [],
           centerTitle: false,
@@ -79,6 +79,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             PopupMenuButton<String>(
+              icon: const Icon(Icons.more_vert),
               onSelected: (String value) {
                 switch (value) {
                   case 'Profile':

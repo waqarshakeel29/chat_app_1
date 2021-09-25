@@ -3,7 +3,7 @@
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:flutter/material.dart';
 
-class ChatRow extends StatefulWidget {
+class MessageRow extends StatefulWidget {
   final String name;
   final String lastMessage;
   final String time;
@@ -11,7 +11,7 @@ class ChatRow extends StatefulWidget {
   final bool isRead;
   final VoidCallback onTap;
 
-  const ChatRow(
+  const MessageRow(
       {Key? key,
       required this.name,
       required this.lastMessage,
@@ -22,12 +22,12 @@ class ChatRow extends StatefulWidget {
       : super(key: key);
 
   @override
-  ChatRowState createState() {
-    return ChatRowState();
+  MessageRowState createState() {
+    return MessageRowState();
   }
 }
 
-class ChatRowState extends State<ChatRow> {
+class MessageRowState extends State<MessageRow> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -93,7 +93,7 @@ class ChatRowState extends State<ChatRow> {
             ),
           )),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Text(
               widget.time,
               maxLines: 1,

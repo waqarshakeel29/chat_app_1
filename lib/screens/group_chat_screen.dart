@@ -2,20 +2,22 @@
 
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/models/chat_model.dart';
+import 'package:chat_app_1/widgets/group_receive_message_bubble.dart';
+import 'package:chat_app_1/widgets/group_send_message_bubble.dart';
 import 'package:chat_app_1/widgets/receive_message_bubble.dart';
 import 'package:chat_app_1/widgets/send_message_bubble.dart';
 import 'package:flutter/material.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class GroupChatScreen extends StatefulWidget {
+  const GroupChatScreen({Key? key}) : super(key: key);
 
   @override
-  ChatScreenState createState() {
-    return ChatScreenState();
+  GroupChatScreenState createState() {
+    return GroupChatScreenState();
   }
 }
 
-class ChatScreenState extends State<ChatScreen> {
+class GroupChatScreenState extends State<GroupChatScreen> {
   ScrollController scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
   List<ChatModel> list = <ChatModel>[];
@@ -77,7 +79,7 @@ class ChatScreenState extends State<ChatScreen> {
         elevation: 0,
         backgroundColor: CustomTheme.primary,
         title: const Text(
-          'Waqas Shakeel',
+          'Friends',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
@@ -111,18 +113,18 @@ class ChatScreenState extends State<ChatScreen> {
                   itemCount: list.length,
                   itemBuilder: (context, index) {
                     return list[index].messageFrom == MessageFrom.notMe
-                        ? ReceivedMessageBubble(
+                        ? GroupReceivedMessageBubble(
                             message: list[index].message,
                             time: list[index].time,
                           )
-                        : SendMessageBubble(
+                        : GroupSendMessageBubble(
                             message: list[index].message,
                             time: list[index].time,
                           );
                   }),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20, top: 5),
+              padding: const EdgeInsets.only(bottom: 10, top: 5),
               child: SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width,

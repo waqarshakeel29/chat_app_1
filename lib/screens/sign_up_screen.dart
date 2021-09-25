@@ -29,6 +29,7 @@ class SignUpScreenState extends State<SignUpScreen> {
             // shrinkWrap: true,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(),
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
@@ -39,10 +40,15 @@ class SignUpScreenState extends State<SignUpScreen> {
                   color: CustomTheme.primary,
                 ),
               ),
+              Center(
+                child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: Image(image: AssetImage("assets/chat_onboard.png"))),
+              ),
               Column(
                 children: [
                   Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.center,
                     child: Text(
                       'Sign Up',
                       style: TextStyle(
@@ -53,7 +59,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    height: MediaQuery.of(context).size.height * 0.05,
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.07,
@@ -92,7 +98,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.04,
+                    height: MediaQuery.of(context).size.height * 0.03,
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.07,
@@ -131,7 +137,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.04,
+                    height: MediaQuery.of(context).size.height * 0.03,
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.07,
@@ -170,7 +176,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    height: MediaQuery.of(context).size.height * 0.05,
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
@@ -187,7 +193,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
                         // color: CustomTheme.primary,
-                        width: MediaQuery.of(context).size.width,
+                        width: MediaQuery.of(context).size.width * 0.83,
                         height: MediaQuery.of(context).size.height * 0.07,
                         child: Center(
                           child: Text(

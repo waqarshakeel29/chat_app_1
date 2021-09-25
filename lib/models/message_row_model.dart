@@ -1,11 +1,11 @@
-class ChatPersonRowModel {
+class MessageRowModel {
   final String name;
   final String lastMessage;
   final String time;
   String imageUrl;
   bool isRead;
 
-  ChatPersonRowModel(
+  MessageRowModel(
       {required this.name,
       required this.lastMessage,
       required this.time,

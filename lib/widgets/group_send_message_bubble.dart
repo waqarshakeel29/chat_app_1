@@ -1,11 +1,11 @@
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:flutter/material.dart';
 
-class SendMessageBubble extends StatelessWidget {
+class GroupSendMessageBubble extends StatelessWidget {
   final String? message;
   final String? time;
 
-  const SendMessageBubble({
+  const GroupSendMessageBubble({
     Key? key,
     this.message,
     this.time,
@@ -17,7 +17,7 @@ class SendMessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double maxBubbleWidth = constraints.maxWidth * 0.8;
+        double maxBubbleWidth = constraints.maxWidth * 0.9;
         return Align(
           alignment: Alignment.centerRight,
           child: ConstrainedBox(

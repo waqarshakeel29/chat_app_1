@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:chat_app_1/models/chat_person_row_model.dart';
+import 'package:chat_app_1/models/message_row_model.dart';
 import 'package:chat_app_1/screens/chat_screen.dart';
 import 'package:chat_app_1/widgets/chat_row_widget.dart';
 import 'package:chat_app_1/widgets/status_list_widget.dart';
@@ -16,32 +16,32 @@ class MessageScreen extends StatefulWidget {
 }
 
 class MessageScreenState extends State<MessageScreen> {
-  List<ChatPersonRowModel> list = <ChatPersonRowModel>[];
+  List<MessageRowModel> list = <MessageRowModel>[];
   @override
   void initState() {
     super.initState();
 
     for (var i = 0; i < 100; i++) {
-      list.add(ChatPersonRowModel(
+      list.add(MessageRowModel(
         name: "Alex Dean",
         lastMessage: "What was the spot we visted last time?",
-        time: "3m ago",
+        time: "12:45 pm",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
         isRead: true,
       ));
-      list.add(ChatPersonRowModel(
+      list.add(MessageRowModel(
         name: "Macy Mason",
         lastMessage: "Would you provide me with a template please?",
-        time: "3m ago",
+        time: "12:45 pm",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
         isRead: false,
       ));
-      list.add(ChatPersonRowModel(
+      list.add(MessageRowModel(
         name: "Waqas Shakeel",
         lastMessage: "Hello brother",
-        time: "3m ago",
+        time: "12:45 pm",
         imageUrl:
             'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
         isRead: true,
@@ -64,7 +64,7 @@ class MessageScreenState extends State<MessageScreen> {
                 // shrinkWrap: true,
                 itemCount: list.length,
                 itemBuilder: (context, index) {
-                  return ChatRow(
+                  return MessageRow(
                     name: list[index].name,
                     lastMessage: list[index].lastMessage,
                     time: list[index].time,

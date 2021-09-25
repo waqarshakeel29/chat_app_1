@@ -73,7 +73,7 @@ class SignSelectionScreenState extends State<SignSelectionScreen> {
                         color: CustomTheme.primary,
                         borderRadius: BorderRadius.all(Radius.circular(30))),
                     // color: CustomTheme.primary,
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width * 0.83,
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: Center(
                       child: Text(
@@ -104,7 +104,7 @@ class SignSelectionScreenState extends State<SignSelectionScreen> {
                             Border.all(width: 1, color: CustomTheme.primary),
                         borderRadius: BorderRadius.all(Radius.circular(30))),
                     // color: CustomTheme.primary,
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width * 0.83,
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: Center(
                       child: Text(
