@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chat_app_1/constants/theme.dart';
+import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/main.dart';
+import 'package:chat_app_1/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -14,38 +17,45 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class SignUpScreenState extends State<SignUpScreen> {
-  ScrollController scrollController = ScrollController();
-  TextEditingController messageController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  SignInController signInController = Get.find<SignInController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            // shrinkWrap: true,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: 40,
-                  color: CustomTheme.primary,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // shrinkWrap: true,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: 40,
+                color: CustomTheme.primary,
               ),
-              Center(
-                child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    child: Image(image: AssetImage("assets/chat_onboard.png"))),
-              ),
-              Column(
+            ),
+            Center(
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: Image(image: AssetImage("assets/chat_onboard.png"))),
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
                 children: [
                   Align(
                     alignment: Alignment.center,
@@ -61,119 +71,42 @@ class SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1, color: CustomTheme.borderColor),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: Offset(1, 7), // changes position of shadow
-                          ),
-                        ],
-                        color: CustomTheme.light,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: TextField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Name',
-                          contentPadding:
-                              EdgeInsets.only(left: 20.0, right: 20.0),
-                          hintStyle: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        textInputAction: TextInputAction.send,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                  CustomTextField(
+                    hint: 'Name',
+                    controller: nameController,
+                    // validator: (String? value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Please enter name';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.03,
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1, color: CustomTheme.borderColor),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: Offset(1, 7), // changes position of shadow
-                          ),
-                        ],
-                        color: CustomTheme.light,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: TextField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Email',
-                          contentPadding:
-                              EdgeInsets.only(left: 20.0, right: 20.0),
-                          hintStyle: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        textInputAction: TextInputAction.send,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                  CustomTextField(
+                    hint: 'Email',
+                    controller: emailController,
+                    // validator: (String? value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Please enter email';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.03,
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1, color: CustomTheme.borderColor),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: Offset(1, 7), // changes position of shadow
-                          ),
-                        ],
-                        color: CustomTheme.light,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: TextField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Password',
-                          contentPadding:
-                              EdgeInsets.only(left: 20.0, right: 20.0),
-                          hintStyle: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        textInputAction: TextInputAction.send,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                  CustomTextField(
+                    hint: 'Password',
+                    controller: passwordController,
+                    obscureText: true,
+                    // validator: (String? value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Please enter password';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.05,
@@ -181,11 +114,25 @@ class SignUpScreenState extends State<SignUpScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                     child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          print("TRUE");
+                          bool result = await signInController.signUp(
+                              nameController.text,
+                              emailController.text,
+                              passwordController.text);
+                          if (result) {
+                            nameController.text = "";
+                            emailController.text = "";
+                            passwordController.text = "";
+                          } else {
+                            print("NOT SIGN UP");
+                          }
+                        } else {
+                          print("FALSE");
+                        }
+                        // signInController.signUp(
+                        //     emailController.text, passwordController.text);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -210,9 +157,9 @@ class SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ],
               ),
-              SizedBox()
-            ],
-          ),
+            ),
+            SizedBox()
+          ],
         ),
       ),
     );

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "115665408333",
+    "project_id": "wegossip-78d69",
+    "storage_bucket": "wegossip-78d69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115665408333:android:565c123974bd94b1e06704",
+        "android_client_info": {
+          "package_name": "com.waqar.wegossip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115665408333-2n0rs9kd5pvrtup73aa4rin0e2aspijv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8PFebSjj6UvMmjY4TGybWI3HGo5xs4y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115665408333-2n0rs9kd5pvrtup73aa4rin0e2aspijv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

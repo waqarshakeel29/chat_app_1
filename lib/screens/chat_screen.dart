@@ -1,13 +1,20 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chat_app_1/constants/theme.dart';
+import 'package:chat_app_1/controller/message_controller.dart';
+import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/models/chat_model.dart';
 import 'package:chat_app_1/widgets/receive_message_bubble.dart';
 import 'package:chat_app_1/widgets/send_message_bubble.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  final String chatUid;
+  const ChatScreen({Key? key, required this.chatUid}) : super(key: key);
 
   @override
   ChatScreenState createState() {
@@ -19,6 +26,10 @@ class ChatScreenState extends State<ChatScreen> {
   ScrollController scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
   List<ChatModel> list = <ChatModel>[];
+
+  SignInController signInController = Get.find<SignInController>();
+  MessageController chatController = Get.find<MessageController>();
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +39,8 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Alex Dean",
         message: "hello",
         time: "12:45 pm",
-        messageFrom: MessageFrom.me,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.me.index,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -36,7 +48,8 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Macy Mason",
         message: "Wow, thats great. Wish you good luck brother.",
         time: "12:45 pm",
-        messageFrom: MessageFrom.notMe,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.notMe.index,
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -45,7 +58,8 @@ class ChatScreenState extends State<ChatScreen> {
         message:
             "That perfect. I am going to get increment this month and im actually very excited!!!",
         time: "12:45 pm",
-        messageFrom: MessageFrom.me,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.me.index,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -53,7 +67,8 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Macy Mason",
         message: "Hi, I am fine. What about you? How's job going?",
         time: "12:45 pm",
-        messageFrom: MessageFrom.notMe,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.notMe.index,
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -61,7 +76,8 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Alex Dean",
         message: "Hello this is waqar. How are you?",
         time: "12:45 pm",
-        messageFrom: MessageFrom.me,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.me.index,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -101,24 +117,62 @@ class ChatScreenState extends State<ChatScreen> {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
-                  controller: scrollController,
-                  reverse: true,
-                  shrinkWrap: true,
-                  // physics: NeverScrollableScrollPhysics(),
-                  // primary: false,
-                  // shrinkWrap: true,
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    return list[index].messageFrom == MessageFrom.notMe
-                        ? ReceivedMessageBubble(
-                            message: list[index].message,
-                            time: list[index].time,
-                          )
-                        : SendMessageBubble(
-                            message: list[index].message,
-                            time: list[index].time,
-                          );
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("messages")
+                      .doc(widget.chatUid)
+                      .collection("chat")
+                      .limit(20)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      var messageList = snapshot.data?.docs;
+                      print(messageList);
+                      // print((messageList as dynamic)["chat"]);
+                      return ListView.builder(
+                          controller: scrollController,
+                          reverse: true,
+                          shrinkWrap: true,
+                          // physics: NeverScrollableScrollPhysics(),
+                          // primary: false,
+                          // shrinkWrap: true,
+                          itemCount: messageList!.length,
+                          // itemCount: list.length,
+                          // itemBuilder: (context, index) {
+                          //   return list[index].messageFrom ==
+                          //           MessageFrom.notMe.index
+                          //       ? ReceivedMessageBubble(
+                          //           message: list[index].message,
+                          //           time: list[index].time,
+                          //         )
+                          //       : SendMessageBubble(
+                          //           message: list[index].message,
+                          //           time: list[index].time,
+                          //         );
+                          // });
+                          itemBuilder: (context, index) {
+                            ChatModel chatModel = ChatModel.fromJson(
+                                snapshot.data?.docs[index].data() as dynamic);
+                            print(chatModel.message);
+                            return list[index].messageFrom ==
+                                    MessageFrom.notMe.index
+                                ? ReceivedMessageBubble(
+                                    message: chatModel.message,
+                                    time: chatModel.time,
+                                  )
+                                : SendMessageBubble(
+                                    message: chatModel.message,
+                                    time: DateFormat('dd MMM kk:mm').format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                            int.parse(chatModel.time))),
+                                  );
+                          });
+                    }
                   }),
             ),
             Padding(
@@ -186,24 +240,27 @@ class ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  void addNewMessage() {
+  void addNewMessage() async {
     if (messageController.text.trim().isNotEmpty) {
-      ChatModel newMessage = ChatModel(
-          name: "Alex",
-          message: messageController.text,
-          imageUrl:
-              'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-          time: "now",
-          messageFrom: MessageFrom.me);
+//       ChatModel newMessage = ChatModel(
+//           name: signInController.user!.displayName!,
+//           message: messageController.text,
+//           imageUrl:
+//               'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
+//           time: "now",
+//           timestamp: "12:45 pm",
+//           messageFrom: MessageFrom.me.index);
+// setState(() {
+//         list.insert(0, newMessage);
+//         messageController.text = '';
+//       });
 
-      setState(() {
-        list.insert(0, newMessage);
-        messageController.text = '';
-      });
-      // Timer(
-      //     Duration(milliseconds: 500),
-      //     () => scrollController
-      //         .jumpTo(scrollController.position.maxScrollExtent));
+      await chatController.onSendMessage(
+          messageController.text,
+          'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
+          widget.chatUid);
+      scrollController.animateTo(0.0,
+          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
     }
   }
 }

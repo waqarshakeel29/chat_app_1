@@ -1,4 +1,4 @@
-package com.example.chat_app_1
+package com.waqar.wegossip
 
 import io.flutter.embedding.android.FlutterActivity
 

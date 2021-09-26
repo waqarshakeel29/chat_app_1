@@ -1,12 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chat_app_1/constants/theme.dart';
+import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/main.dart';
 import 'package:chat_app_1/models/chat_model.dart';
+import 'package:chat_app_1/widgets/custom_text_field.dart';
 import 'package:chat_app_1/widgets/receive_message_bubble.dart';
 import 'package:chat_app_1/widgets/send_message_bubble.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -18,8 +21,12 @@ class SignInScreen extends StatefulWidget {
 }
 
 class SignInScreenState extends State<SignInScreen> {
-  ScrollController scrollController = ScrollController();
-  TextEditingController messageController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  SignInController signInController = Get.find<SignInController>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,147 +56,110 @@ class SignInScreenState extends State<SignInScreen> {
                     height: MediaQuery.of(context).size.height * 0.2,
                     child: Image(image: AssetImage("assets/chat_onboard.png"))),
               ),
-              Column(
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: CustomTheme.primary,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1, color: CustomTheme.borderColor),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: Offset(1, 7), // changes position of shadow
-                          ),
-                        ],
-                        color: CustomTheme.light,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: TextField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Username or Email',
-                          contentPadding:
-                              EdgeInsets.only(left: 20.0, right: 20.0),
-                          hintStyle: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        textInputAction: TextInputAction.send,
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Sign In',
                         style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: CustomTheme.primary,
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.03,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1, color: CustomTheme.borderColor),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 10,
-                            offset: Offset(1, 7), // changes position of shadow
-                          ),
-                        ],
-                        color: CustomTheme.light,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: TextField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Password',
-                          contentPadding:
-                              EdgeInsets.only(left: 20.0, right: 20.0),
-                          hintStyle: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        textInputAction: TextInputAction.send,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.black,
-                        ),
-                      ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
-                            ModalRoute.withName("/Home"));
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => HomeScreen()));
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: CustomTheme.primary,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        // color: CustomTheme.primary,
-                        width: MediaQuery.of(context).size.width * 0.83,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        child: Center(
-                          child: Text(
-                            'SIGN IN',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: CustomTheme.light,
+                    CustomTextField(
+                      hint: 'Email',
+                      controller: emailController,
+                      // validator: (String? value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'Please enter email';
+                      //   }
+                      //   return null;
+                      // },
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    ),
+                    CustomTextField(
+                      hint: 'Password',
+                      controller: passwordController,
+                      obscureText: true,
+                      // validator: (String? value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'Please enter email';
+                      //   }
+                      //   return null;
+                      // },
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                      child: InkWell(
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            print("TRUE");
+                            bool result = await signInController.signIn(
+                                emailController.text, passwordController.text);
+                            if (result) {
+                              emailController.text = "";
+                              passwordController.text = "";
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()),
+                                  ModalRoute.withName("/Home"));
+                            } else {
+                              print("NOT SIGN UP");
+                            }
+                          } else {
+                            print("FALSE");
+                          }
+                          // signInController.signUp(
+                          //     emailController.text, passwordController.text);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: CustomTheme.primary,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30))),
+                          // color: CustomTheme.primary,
+                          width: MediaQuery.of(context).size.width * 0.83,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          child: Center(
+                            child: Text(
+                              'SIGN IN',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: CustomTheme.light,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.04,
-                  ),
-                  Text(
-                    'Forget Passowrd?',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: CustomTheme.primary,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.04,
                     ),
-                  ),
-                ],
+                    Text(
+                      'Forget Passowrd?',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: CustomTheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox()
             ],

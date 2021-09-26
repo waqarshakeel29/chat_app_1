@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>115665408333-ds91rru6icenns6lcapvovus6oti1rmp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.115665408333-ds91rru6icenns6lcapvovus6oti1rmp</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBs4YWQQPNL4yq-XUfIo6m4_V4_474k9hY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>115665408333</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.waqar.wegossip</string>
+	<key>PROJECT_ID</key>
+	<string>wegossip-78d69</string>
+	<key>STORAGE_BUCKET</key>
+	<string>wegossip-78d69.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:115665408333:ios:c97d6af76395b7c0e06704</string>
+</dict>
+</plist>

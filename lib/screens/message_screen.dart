@@ -2,6 +2,7 @@
 
 import 'package:chat_app_1/models/message_row_model.dart';
 import 'package:chat_app_1/screens/chat_screen.dart';
+import 'package:chat_app_1/screens/members_screen.dart';
 import 'package:chat_app_1/widgets/chat_row_widget.dart';
 import 'package:chat_app_1/widgets/status_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -51,36 +52,58 @@ class MessageScreenState extends State<MessageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-      child: Column(
-        children: [
-          SizedBox(height: 115, child: StatusList()),
-          Expanded(
-            child: ListView.builder(
-                // shrinkWrap: true,
-                // physics: NeverScrollableScrollPhysics(),
-                // primary: false,
-                // shrinkWrap: true,
-                itemCount: list.length,
-                itemBuilder: (context, index) {
-                  return MessageRow(
-                    name: list[index].name,
-                    lastMessage: list[index].lastMessage,
-                    time: list[index].time,
-                    imageUrl: list[index].imageUrl,
-                    isRead: list[index].isRead,
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChatScreen()));
-                    },
-                  );
-                }),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+          child: Column(
+            children: [
+              SizedBox(height: 115, child: StatusList()),
+              Expanded(
+                child: ListView.builder(
+                    // shrinkWrap: true,
+                    // physics: NeverScrollableScrollPhysics(),
+                    // primary: false,
+                    // shrinkWrap: true,
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                      return MessageRow(
+                        name: list[index].name,
+                        lastMessage: list[index].lastMessage,
+                        time: list[index].time,
+                        imageUrl: list[index].imageUrl,
+                        isRead: list[index].isRead,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatScreen(
+                                        chatUid: "",
+                                      )));
+                        },
+                      );
+                    }),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                  child: Icon(
+                    Icons.message,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MembersScreen()));
+                  })),
+        )
+      ],
     );
   }
 }

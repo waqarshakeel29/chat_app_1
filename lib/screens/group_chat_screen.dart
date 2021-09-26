@@ -30,7 +30,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Alex Dean",
         message: "hello",
         time: "12:45 pm",
-        messageFrom: MessageFrom.me,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.me.index,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -38,7 +39,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Macy Mason",
         message: "Wow, thats great. Wish you good luck brother.",
         time: "12:45 pm",
-        messageFrom: MessageFrom.notMe,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.notMe.index,
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -47,7 +49,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         message:
             "That perfect. I am going to get increment this month and im actually very excited!!!",
         time: "12:45 pm",
-        messageFrom: MessageFrom.me,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.me.index,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -55,7 +58,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Macy Mason",
         message: "Hi, I am fine. What about you? How's job going?",
         time: "12:45 pm",
-        messageFrom: MessageFrom.notMe,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.notMe.index,
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -63,7 +67,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Alex Dean",
         message: "Hello this is waqar. How are you?",
         time: "12:45 pm",
-        messageFrom: MessageFrom.me,
+        timestamp: "12:45 pm",
+        messageFrom: MessageFrom.me.index,
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -112,7 +117,7 @@ class GroupChatScreenState extends State<GroupChatScreen> {
                   // shrinkWrap: true,
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return list[index].messageFrom == MessageFrom.notMe
+                    return list[index].messageFrom == MessageFrom.notMe.index
                         ? GroupReceivedMessageBubble(
                             message: list[index].message,
                             time: list[index].time,
@@ -196,7 +201,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
           imageUrl:
               'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
           time: "now",
-          messageFrom: MessageFrom.me);
+          timestamp: "12:45 pm",
+          messageFrom: MessageFrom.me.index);
 
       setState(() {
         list.insert(0, newMessage);
