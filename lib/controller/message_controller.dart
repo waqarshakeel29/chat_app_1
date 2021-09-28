@@ -1,12 +1,11 @@
 import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/models/chat_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
 class MessageController extends GetxController {
-  // var products = List<Product>().obs;
+
   SignInController signInController = Get.find<SignInController>();
   @override
   void onInit() {

@@ -1,4 +1,3 @@
-import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/models/call_row_model.dart';
 import 'package:chat_app_1/widgets/call_row_widget.dart';
 import 'package:flutter/material.dart';

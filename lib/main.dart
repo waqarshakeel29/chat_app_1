@@ -4,16 +4,17 @@ import 'package:chat_app_1/controller/message_controller.dart';
 import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/screens/call_screen.dart';
 import 'package:chat_app_1/screens/group_screen.dart';
-import 'package:chat_app_1/screens/sign_in_screen.dart';
 import 'package:chat_app_1/screens/sign_selection_screen.dart';
 import 'package:chat_app_1/widgets/tab_heading.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
 import 'screens/message_screen.dart';
-// Import the firebase_core plugin
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

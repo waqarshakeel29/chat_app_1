@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chat_app_1/models/message_row_model.dart';
-import 'package:chat_app_1/screens/chat_screen.dart';
 import 'package:chat_app_1/widgets/chat_row_widget.dart';
 import 'package:flutter/material.dart';
 

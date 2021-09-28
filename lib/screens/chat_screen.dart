@@ -7,7 +7,6 @@ import 'package:chat_app_1/models/chat_model.dart';
 import 'package:chat_app_1/widgets/receive_message_bubble.dart';
 import 'package:chat_app_1/widgets/send_message_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

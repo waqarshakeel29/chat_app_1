@@ -1,6 +1,5 @@
 import 'package:chat_app_1/models/member_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class MembersController extends GetxController {

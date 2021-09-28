@@ -2,8 +2,8 @@
 
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/controller/sign_in_controller.dart';
-import 'package:chat_app_1/main.dart';
 import 'package:chat_app_1/widgets/custom_text_field.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

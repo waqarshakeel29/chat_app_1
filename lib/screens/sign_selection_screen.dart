@@ -3,7 +3,6 @@
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/screens/sign_in_screen.dart';
 import 'package:chat_app_1/screens/sign_up_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignSelectionScreen extends StatefulWidget {

@@ -5,7 +5,6 @@ import 'package:chat_app_1/models/chat_model.dart';
 import 'package:chat_app_1/widgets/group_receive_message_bubble.dart';
 import 'package:chat_app_1/widgets/group_send_message_bubble.dart';
 import 'package:chat_app_1/widgets/receive_message_bubble.dart';
-import 'package:chat_app_1/widgets/send_message_bubble.dart';
 import 'package:flutter/material.dart';
 
 class GroupChatScreen extends StatefulWidget {
