@@ -37,18 +37,16 @@ class ChatScreenState extends State<ChatScreen> {
       list.add(ChatModel(
         name: "Alex Dean",
         message: "hello",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.me.index,
+        messageFromUid: "1",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
       list.add(ChatModel(
         name: "Macy Mason",
         message: "Wow, thats great. Wish you good luck brother.",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.notMe.index,
+        messageFromUid: "2",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -56,27 +54,24 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Alex Dean",
         message:
             "That perfect. I am going to get increment this month and im actually very excited!!!",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.me.index,
+        messageFromUid: "1",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
       list.add(ChatModel(
         name: "Macy Mason",
         message: "Hi, I am fine. What about you? How's job going?",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.notMe.index,
+        messageFromUid: "2",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
       list.add(ChatModel(
         name: "Alex Dean",
         message: "Hello this is waqar. How are you?",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.me.index,
+        messageFromUid: "1",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -121,6 +116,7 @@ class ChatScreenState extends State<ChatScreen> {
                       .collection("messages")
                       .doc(widget.chatUid)
                       .collection("chat")
+                      .orderBy("timestamp", descending: true)
                       .limit(20)
                       .snapshots(),
                   builder: (BuildContext context,
@@ -158,17 +154,19 @@ class ChatScreenState extends State<ChatScreen> {
                             ChatModel chatModel = ChatModel.fromJson(
                                 snapshot.data?.docs[index].data() as dynamic);
                             print(chatModel.message);
-                            return list[index].messageFrom ==
-                                    MessageFrom.notMe.index
+                            return list[index].messageFromUid ==
+                                    signInController.user!.uid
                                 ? ReceivedMessageBubble(
                                     message: chatModel.message,
-                                    time: chatModel.time,
+                                    time: DateFormat('dd MMM kk:mm').format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                            int.parse(chatModel.timestamp))),
                                   )
                                 : SendMessageBubble(
                                     message: chatModel.message,
                                     time: DateFormat('dd MMM kk:mm').format(
                                         DateTime.fromMillisecondsSinceEpoch(
-                                            int.parse(chatModel.time))),
+                                            int.parse(chatModel.timestamp))),
                                   );
                           });
                     }

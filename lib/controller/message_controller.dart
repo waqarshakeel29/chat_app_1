@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
 class MessageController extends GetxController {
-
   SignInController signInController = Get.find<SignInController>();
   @override
   void onInit() {
@@ -31,11 +30,11 @@ class MessageController extends GetxController {
           // FieldValue.arrayUnion([])
           await FirebaseFirestore.instance
               .collection("messagesUids")
-              .doc(uid + "-" + signInController.user!.uid)
+              .doc(memberUid + "-" + signInController.user!.uid)
               .set({"messageUid": messageUid}).then((_) async {});
           await FirebaseFirestore.instance
               .collection("messagesUids")
-              .doc(signInController.user!.uid + "-" + uid)
+              .doc(signInController.user!.uid + "-" + memberUid)
               .set({"messageUid": messageUid}).then((_) async {});
           uid = messageUid;
         });
@@ -56,12 +55,12 @@ class MessageController extends GetxController {
         .doc(time);
 
     ChatModel newMessage = ChatModel(
-        name: signInController.user!.displayName!,
-        message: content,
-        imageUrl: imageUrl,
-        time: time,
-        timestamp: time,
-        messageFrom: MessageFrom.me.index);
+      name: signInController.user!.displayName!,
+      message: content,
+      imageUrl: imageUrl,
+      timestamp: time,
+      messageFromUid: signInController.user!.uid,
+    );
 
     await FirebaseFirestore.instance.runTransaction((transaction) async {
       await transaction.set(

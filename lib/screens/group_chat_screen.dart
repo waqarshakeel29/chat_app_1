@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chat_app_1/constants/theme.dart';
+import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/models/chat_model.dart';
 import 'package:chat_app_1/widgets/group_receive_message_bubble.dart';
 import 'package:chat_app_1/widgets/group_send_message_bubble.dart';
 import 'package:chat_app_1/widgets/receive_message_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 
 class GroupChatScreen extends StatefulWidget {
   const GroupChatScreen({Key? key}) : super(key: key);
@@ -19,6 +21,8 @@ class GroupChatScreen extends StatefulWidget {
 class GroupChatScreenState extends State<GroupChatScreen> {
   ScrollController scrollController = ScrollController();
   TextEditingController messageController = TextEditingController();
+
+  SignInController signInController = Get.find<SignInController>();
   List<ChatModel> list = <ChatModel>[];
   @override
   void initState() {
@@ -28,18 +32,16 @@ class GroupChatScreenState extends State<GroupChatScreen> {
       list.add(ChatModel(
         name: "Alex Dean",
         message: "hello",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.me.index,
+        messageFromUid: "1",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
       list.add(ChatModel(
         name: "Macy Mason",
         message: "Wow, thats great. Wish you good luck brother.",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.notMe.index,
+        messageFromUid: "2",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -47,27 +49,24 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Alex Dean",
         message:
             "That perfect. I am going to get increment this month and im actually very excited!!!",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.me.index,
+        messageFromUid: "1",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
       list.add(ChatModel(
         name: "Macy Mason",
         message: "Hi, I am fine. What about you? How's job going?",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.notMe.index,
+        messageFromUid: "2",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
       list.add(ChatModel(
         name: "Alex Dean",
         message: "Hello this is waqar. How are you?",
-        time: "12:45 pm",
         timestamp: "12:45 pm",
-        messageFrom: MessageFrom.me.index,
+        messageFromUid: "1",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -116,14 +115,13 @@ class GroupChatScreenState extends State<GroupChatScreen> {
                   // shrinkWrap: true,
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return list[index].messageFrom == MessageFrom.notMe.index
+                    return list[index].messageFromUid !=
+                            signInController.user!.uid
                         ? GroupReceivedMessageBubble(
                             message: list[index].message,
-                            time: list[index].time,
                           )
                         : GroupSendMessageBubble(
                             message: list[index].message,
-                            time: list[index].time,
                           );
                   }),
             ),
@@ -199,9 +197,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
           message: messageController.text,
           imageUrl:
               'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-          time: "now",
           timestamp: "12:45 pm",
-          messageFrom: MessageFrom.me.index);
+          messageFromUid: "1");
 
       setState(() {
         list.insert(0, newMessage);
