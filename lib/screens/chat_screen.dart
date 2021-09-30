@@ -13,7 +13,12 @@ import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
   final String chatUid;
-  const ChatScreen({Key? key, required this.chatUid}) : super(key: key);
+  final String membUid;
+  const ChatScreen({
+    Key? key,
+    required this.chatUid,
+    required this.membUid,
+  }) : super(key: key);
 
   @override
   ChatScreenState createState() {
@@ -38,7 +43,8 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Alex Dean",
         message: "hello",
         timestamp: "12:45 pm",
-        messageFromUid: "1",
+        senderUid: "1",
+        receiverUid: "2",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -46,7 +52,8 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Macy Mason",
         message: "Wow, thats great. Wish you good luck brother.",
         timestamp: "12:45 pm",
-        messageFromUid: "2",
+        senderUid: "2",
+        receiverUid: "1",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -55,7 +62,8 @@ class ChatScreenState extends State<ChatScreen> {
         message:
             "That perfect. I am going to get increment this month and im actually very excited!!!",
         timestamp: "12:45 pm",
-        messageFromUid: "1",
+        senderUid: "1",
+        receiverUid: "2",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -63,7 +71,8 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Macy Mason",
         message: "Hi, I am fine. What about you? How's job going?",
         timestamp: "12:45 pm",
-        messageFromUid: "2",
+        senderUid: "2",
+        receiverUid: "1",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -71,7 +80,8 @@ class ChatScreenState extends State<ChatScreen> {
         name: "Alex Dean",
         message: "Hello this is waqar. How are you?",
         timestamp: "12:45 pm",
-        messageFromUid: "1",
+        senderUid: "1",
+        receiverUid: "2",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -154,7 +164,7 @@ class ChatScreenState extends State<ChatScreen> {
                             ChatModel chatModel = ChatModel.fromJson(
                                 snapshot.data?.docs[index].data() as dynamic);
                             print(chatModel.message);
-                            return chatModel.messageFromUid !=
+                            return chatModel.senderUid !=
                                     signInController.user!.uid
                                 ? ReceivedMessageBubble(
                                     message: chatModel.message,
@@ -255,7 +265,8 @@ class ChatScreenState extends State<ChatScreen> {
       await chatController.onSendMessage(
           messageController.text,
           'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-          widget.chatUid);
+          widget.chatUid,
+          widget.membUid);
       scrollController.animateTo(0.0,
           duration: Duration(milliseconds: 300), curve: Curves.easeOut);
     }

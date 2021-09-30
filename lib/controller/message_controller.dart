@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/models/chat_model.dart';
+import 'package:chat_app_1/models/message_row_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -43,22 +46,49 @@ class MessageController extends GetxController {
     return uid;
   }
 
-  Future<String> getMessages() async {
+  Future<List<MessageRowModel>> getMessages() async {
     String uid = "";
-    await FirebaseFirestore.instance
-        .collection("messagesUids")
+    var lastMessageList = <MessageRowModel>[];
+    // print(signInController.user!.uid);
+    return await FirebaseFirestore.instance
+        .collection("lastMessages")
+        .where("senderUid", isEqualTo: signInController.user!.uid)
         .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        print(doc["messageUid"]);
+        .then((QuerySnapshot snapshot) {
+      // print(snapshot.size);
+      return FirebaseFirestore.instance
+          .collection("lastMessages")
+          .where("receiverUid", isEqualTo: signInController.user!.uid)
+          .get()
+          .then((QuerySnapshot snapshot2) {
+        var list = snapshot.docs;
+        list.addAll(snapshot2.docs);
+
+        var timeList = <String>[];
+        for (var element in list) {
+          ChatModel lastMessage =
+              ChatModel.fromJson(element.data() as Map<String, dynamic>);
+          if (!timeList.contains(lastMessage.timestamp)) {
+            lastMessageList.add(MessageRowModel(
+                name: lastMessage.name,
+                lastMessage: lastMessage.message,
+                time: lastMessage.timestamp,
+                imageUrl: lastMessage.imageUrl));
+            timeList.add(lastMessage.timestamp);
+          }
+        }
+        print("RETURN VALUE");
+        print(lastMessageList);
+        return lastMessageList;
       });
     });
-
-    return uid;
+    // print("RETURN VALUE");
+    // print(lastMessageList);
+    // return lastMessageList;
   }
 
   Future<bool> onSendMessage(
-      String content, String imageUrl, String chatUid) async {
+      String content, String imageUrl, String chatUid, String memberUid) async {
     // type: 0 = text, 1 = image, 2 = sticker
 
     String time = DateTime.now().millisecondsSinceEpoch.toString();
@@ -69,19 +99,33 @@ class MessageController extends GetxController {
         .doc(time);
 
     ChatModel newMessage = ChatModel(
-      name: signInController.user!.displayName!,
-      message: content,
-      imageUrl: imageUrl,
-      timestamp: time,
-      messageFromUid: signInController.user!.uid,
-    );
+        name: signInController.user!.displayName!,
+        message: content,
+        imageUrl: imageUrl,
+        timestamp: time,
+        senderUid: signInController.user!.uid,
+        receiverUid: memberUid);
 
     await FirebaseFirestore.instance.runTransaction((transaction) async {
-      await transaction.set(
+      transaction.set(
         documentReference,
         newMessage.toJson(),
       );
+      FirebaseFirestore.instance
+          .collection('lastMessages')
+          .doc(signInController.user!.uid + "-" + memberUid)
+          // .collection(memberUid)
+          // .doc("1")
+          .set(newMessage.toJson());
+
+      FirebaseFirestore.instance
+          .collection('lastMessages')
+          .doc(memberUid + "-" + signInController.user!.uid)
+          // .collection(signInController.user!.uid)
+          // .doc("1")
+          .set(newMessage.toJson());
     });
+
     return true;
   }
 }

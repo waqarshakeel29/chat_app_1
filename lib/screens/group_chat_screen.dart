@@ -33,7 +33,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Alex Dean",
         message: "hello",
         timestamp: "12:45 pm",
-        messageFromUid: "1",
+        senderUid: "1",
+        receiverUid: "2",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -41,7 +42,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Macy Mason",
         message: "Wow, thats great. Wish you good luck brother.",
         timestamp: "12:45 pm",
-        messageFromUid: "2",
+        senderUid: "2",
+        receiverUid: "1",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -50,7 +52,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         message:
             "That perfect. I am going to get increment this month and im actually very excited!!!",
         timestamp: "12:45 pm",
-        messageFromUid: "1",
+        senderUid: "1",
+        receiverUid: "2",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -58,7 +61,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Macy Mason",
         message: "Hi, I am fine. What about you? How's job going?",
         timestamp: "12:45 pm",
-        messageFromUid: "2",
+        senderUid: "2",
+        receiverUid: "1",
         imageUrl:
             'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
       ));
@@ -66,7 +70,8 @@ class GroupChatScreenState extends State<GroupChatScreen> {
         name: "Alex Dean",
         message: "Hello this is waqar. How are you?",
         timestamp: "12:45 pm",
-        messageFromUid: "1",
+        senderUid: "1",
+        receiverUid: "2",
         imageUrl:
             'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
       ));
@@ -115,8 +120,7 @@ class GroupChatScreenState extends State<GroupChatScreen> {
                   // shrinkWrap: true,
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return list[index].messageFromUid !=
-                            signInController.user!.uid
+                    return list[index].senderUid != signInController.user!.uid
                         ? GroupReceivedMessageBubble(
                             message: list[index].message,
                           )
@@ -193,12 +197,14 @@ class GroupChatScreenState extends State<GroupChatScreen> {
   void addNewMessage() {
     if (messageController.text.trim().isNotEmpty) {
       ChatModel newMessage = ChatModel(
-          name: "Alex",
-          message: messageController.text,
-          imageUrl:
-              'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-          timestamp: "12:45 pm",
-          messageFromUid: "1");
+        name: "Alex",
+        message: messageController.text,
+        imageUrl:
+            'https://images.unsplash.com/photo-1541577141970-eebc83ebe30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
+        timestamp: "12:45 pm",
+        senderUid: "1",
+        receiverUid: "2",
+      );
 
       setState(() {
         list.insert(0, newMessage);

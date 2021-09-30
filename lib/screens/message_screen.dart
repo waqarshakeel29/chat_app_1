@@ -64,28 +64,42 @@ class MessageScreenState extends State<MessageScreen> {
             children: [
               SizedBox(height: 115, child: StatusList()),
               Expanded(
-                child: ListView.builder(
-                    // shrinkWrap: true,
-                    // physics: NeverScrollableScrollPhysics(),
-                    // primary: false,
-                    // shrinkWrap: true,
-                    itemCount: list.length,
-                    itemBuilder: (context, index) {
-                      return MessageRow(
-                        name: list[index].name,
-                        lastMessage: list[index].lastMessage,
-                        time: list[index].time,
-                        imageUrl: list[index].imageUrl,
-                        isRead: list[index].isRead,
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChatScreen(
-                                        chatUid: "",
-                                      )));
-                        },
-                      );
+                child: FutureBuilder(
+                    future: messageController.getMessages(),
+                    builder: (context, snapshot) {
+                      List<MessageRowModel>? messagesList = null;
+                      if (snapshot.hasData) {
+                        messagesList = snapshot.data as List<MessageRowModel>;
+                        print("DATA1");
+                        print(snapshot.data);
+                        print("DATA2");
+                        print(messagesList);
+                      }
+                      return snapshot.hasData
+                          ? ListView.builder(
+                              // shrinkWrap: true,
+                              // physics: NeverScrollableScrollPhysics(),
+                              // primary: false,
+                              // shrinkWrap: true,
+                              itemCount: messagesList!.length,
+                              itemBuilder: (context, index) {
+                                return MessageRow(
+                                  name: messagesList![index].name,
+                                  lastMessage: messagesList[index].lastMessage,
+                                  time: messagesList[index].time,
+                                  imageUrl: messagesList[index].imageUrl,
+                                  isRead: messagesList[index].isRead,
+                                  onTap: () {
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) => ChatScreen(
+                                    //               chatUid: "",
+                                    //             )));
+                                  },
+                                );
+                              })
+                          : CircularProgressIndicator();
                     }),
               ),
             ],

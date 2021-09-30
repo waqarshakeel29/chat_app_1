@@ -7,7 +7,8 @@ class ChatModel {
   final String name;
   final String message;
   final String imageUrl;
-  final String messageFromUid;
+  final String senderUid;
+  final String receiverUid;
   final String timestamp;
 
   ChatModel(
@@ -15,7 +16,8 @@ class ChatModel {
       required this.name,
       required this.message,
       required this.imageUrl,
-      required this.messageFromUid,
+      required this.senderUid,
+      required this.receiverUid,
       required this.timestamp});
 
   ChatModel.fromJson(Map<String, dynamic> json)
@@ -23,14 +25,16 @@ class ChatModel {
         name = json['name'],
         message = json['message'],
         imageUrl = json['imageUrl'],
-        messageFromUid = json['messageFromUid'],
+        senderUid = json['senderUid'],
+        receiverUid = json['receiverUid'],
         timestamp = json['timestamp'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
         'message': message,
         'imageUrl': imageUrl,
-        "messageFromUid": messageFromUid,
+        "senderUid": senderUid,
+        "receiverUid": receiverUid,
         "timestamp": timestamp
       };
 }

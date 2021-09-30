@@ -102,6 +102,8 @@ class MembersScreenState extends State<MembersScreen> {
                                                   builder: (context) =>
                                                       ChatScreen(
                                                         chatUid: uid,
+                                                        membUid:
+                                                            list![index].uid,
                                                       )));
                                         }
                                       },
