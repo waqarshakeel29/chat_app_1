@@ -43,6 +43,20 @@ class MessageController extends GetxController {
     return uid;
   }
 
+  Future<String> getMessages() async {
+    String uid = "";
+    await FirebaseFirestore.instance
+        .collection("messagesUids")
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        print(doc["messageUid"]);
+      });
+    });
+
+    return uid;
+  }
+
   Future<bool> onSendMessage(
       String content, String imageUrl, String chatUid) async {
     // type: 0 = text, 1 = image, 2 = sticker

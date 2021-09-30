@@ -35,26 +35,28 @@ class ReceivedMessageBubble extends StatelessWidget {
               ),
               margin: const EdgeInsets.all(5.0),
               padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(message!,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 16)),
-                  const SizedBox(height: 5.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        time!,
-                        style: const TextStyle(
-                          color: Colors.black54,
-                          fontSize: 12.0,
+              child: IntrinsicWidth(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(message!,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 16)),
+                    const SizedBox(height: 5.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          time!,
+                          style: const TextStyle(
+                            color: Colors.black54,
+                            fontSize: 12.0,
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

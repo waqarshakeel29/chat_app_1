@@ -154,7 +154,7 @@ class ChatScreenState extends State<ChatScreen> {
                             ChatModel chatModel = ChatModel.fromJson(
                                 snapshot.data?.docs[index].data() as dynamic);
                             print(chatModel.message);
-                            return list[index].messageFromUid ==
+                            return chatModel.messageFromUid !=
                                     signInController.user!.uid
                                 ? ReceivedMessageBubble(
                                     message: chatModel.message,

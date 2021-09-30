@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:chat_app_1/controller/message_controller.dart';
 import 'package:chat_app_1/models/message_row_model.dart';
 import 'package:chat_app_1/screens/chat_screen.dart';
 import 'package:chat_app_1/screens/members_screen.dart';
 import 'package:chat_app_1/widgets/chat_row_widget.dart';
 import 'package:chat_app_1/widgets/status_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class MessageScreen extends StatefulWidget {
 }
 
 class MessageScreenState extends State<MessageScreen> {
+  MessageController messageController = Get.find<MessageController>();
+
   List<MessageRowModel> list = <MessageRowModel>[];
   @override
   void initState() {
@@ -96,11 +100,12 @@ class MessageScreenState extends State<MessageScreen> {
                     Icons.message,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MembersScreen()));
+                  onPressed: () async {
+                    await messageController.getMessages();
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => MembersScreen()));
                   })),
         )
       ],

@@ -5,6 +5,7 @@ import 'package:chat_app_1/controller/members_controller.dart';
 import 'package:chat_app_1/controller/message_controller.dart';
 import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/models/member_model.dart';
+import 'package:chat_app_1/models/message_row_model.dart';
 import 'package:chat_app_1/screens/chat_screen.dart';
 import 'package:chat_app_1/widgets/member_row_widget.dart';
 
@@ -66,23 +67,34 @@ class MembersScreenState extends State<MembersScreen> {
                         future: membersController.fetchMembers(),
                         builder:
                             (_, AsyncSnapshot<List<MemberModel>> snapshot) {
+                          List<MemberModel>? list;
+                          if (snapshot.hasData) {
+                            for (var index = 0;
+                                index < snapshot.data!.length;
+                                index++) {
+                              print(snapshot.data![index].name);
+                              print(snapshot.hasData);
+                            }
+                            list = snapshot.data!;
+                            list.removeWhere((element) =>
+                                element.uid == signInController.user!.uid);
+                          }
                           return snapshot.hasData
                               ? ListView.builder(
                                   // shrinkWrap: true,
                                   // physics: NeverScrollableScrollPhysics(),
                                   // primary: false,
                                   // shrinkWrap: true,
-                                  itemCount: snapshot.data!.length,
+                                  itemCount: list!.length,
                                   itemBuilder: (context, index) {
                                     return MemberRow(
-                                      name: snapshot.data![index].name,
-                                      imageUrl: snapshot.data![index].imageUrl,
+                                      name: list![index].name,
+                                      imageUrl: list[index].imageUrl,
                                       onTap: () async {
                                         if (signInController.user!.uid !=
-                                            snapshot.data![index].uid) {
+                                            list![index].uid) {
                                           var uid = await messageController
-                                              .getMessageUid(
-                                                  snapshot.data![index].uid);
+                                              .getMessageUid(list[index].uid);
                                           print(uid);
                                           Navigator.push(
                                               context,
