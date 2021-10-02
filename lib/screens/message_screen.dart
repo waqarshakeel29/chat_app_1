@@ -8,6 +8,7 @@ import 'package:chat_app_1/widgets/chat_row_widget.dart';
 import 'package:chat_app_1/widgets/status_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({Key? key}) : super(key: key);
@@ -86,7 +87,9 @@ class MessageScreenState extends State<MessageScreen> {
                                 return MessageRow(
                                   name: messagesList![index].name,
                                   lastMessage: messagesList[index].lastMessage,
-                                  time: messagesList[index].time,
+                                  time: DateFormat('dd MMM kk:mm a').format(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          int.parse(messagesList[index].time))),
                                   imageUrl: messagesList[index].imageUrl,
                                   isRead: messagesList[index].isRead,
                                   onTap: () {
@@ -115,11 +118,11 @@ class MessageScreenState extends State<MessageScreen> {
                     color: Colors.white,
                   ),
                   onPressed: () async {
-                    await messageController.getMessages();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => MembersScreen()));
+                    // await messageController.getMessages();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MembersScreen()));
                   })),
         )
       ],
