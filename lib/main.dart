@@ -4,6 +4,7 @@ import 'package:chat_app_1/controller/message_controller.dart';
 import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/screens/call_screen.dart';
 import 'package:chat_app_1/screens/group_screen.dart';
+import 'package:chat_app_1/screens/profile_screen.dart';
 import 'package:chat_app_1/screens/sign_selection_screen.dart';
 import 'package:chat_app_1/widgets/tab_heading.dart';
 
@@ -106,6 +107,10 @@ class HomeScreen extends StatelessWidget {
               onSelected: (String value) {
                 switch (value) {
                   case 'Profile':
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileScreen()));
                     break;
                   case 'Settings':
                     break;

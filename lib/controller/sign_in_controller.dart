@@ -35,6 +35,10 @@ class SignInController extends GetxController {
     ))
             .user;
     if (user != null) {
+      FirebaseFirestore.instance
+          .collection("userDetails")
+          .doc(user.uid)
+          .set({"Name": name.trim()});
       // user.updateDisplayName(name);
       user.updateDisplayName(name).then((value) {
         print("Profile has been changed successfully");
