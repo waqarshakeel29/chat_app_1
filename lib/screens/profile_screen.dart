@@ -74,7 +74,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                             onTap: () async {
                               File? imageFile = await Utils.imageToFile();
                               if (imageFile != null) {
+
                                 print(imageFile.absolute.path);
+                                
                                 // showProgress(context);
                                 // var stringResponse = await editProfileController
                                 //     .uploadProfilePicture(imageFile);
