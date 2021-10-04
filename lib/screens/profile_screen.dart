@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/controller/message_controller.dart';
 import 'package:chat_app_1/controller/sign_in_controller.dart';
 import 'package:chat_app_1/models/chat_model.dart';
+import 'package:chat_app_1/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,12 +53,14 @@ class ProfileScreenState extends State<ProfileScreen> {
               .doc(signInController.user!.uid)
               .get(),
           builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-            nameController.text =
-                (snapshot.data as DocumentSnapshot).get("Name");
-            dateOfBirthController.text =
-                (snapshot.data as DocumentSnapshot).get("DateOfBirth");
-            gender =
-                int.parse((snapshot.data as DocumentSnapshot).get("Gender"));
+            if (snapshot.hasData) {
+              nameController.text =
+                  (snapshot.data as DocumentSnapshot).get("Name");
+              dateOfBirthController.text =
+                  (snapshot.data as DocumentSnapshot).get("DateOfBirth");
+              gender =
+                  int.parse((snapshot.data as DocumentSnapshot).get("Gender"));
+            }
             return snapshot.hasData
                 ? Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -65,11 +70,26 @@ class ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CircleAvatar(
-                            radius: 60,
-                            backgroundColor: CustomTheme.primary,
-                            backgroundImage: NetworkImage(
-                              'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
+                          child: GestureDetector(
+                            onTap: () async {
+                              File? imageFile = await Utils.imageToFile();
+                              if (imageFile != null) {
+                                print(imageFile.absolute.path);
+                                // showProgress(context);
+                                // var stringResponse = await editProfileController
+                                //     .uploadProfilePicture(imageFile);
+                                // Navigator.pop(context);
+                                // if (stringResponse == "OK") {
+                                //   Navigator.pop(context, true);
+                                // }
+                              }
+                            },
+                            child: CircleAvatar(
+                              radius: 60,
+                              backgroundColor: CustomTheme.primary,
+                              backgroundImage: NetworkImage(
+                                'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
+                              ),
                             ),
                           ),
                         ),
@@ -88,7 +108,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             TextField(
                               controller: nameController,
                               style: TextStyle(
-                                fontSize: 23,
+                                fontSize: 21,
                               ),
                               cursorColor: CustomTheme.primary,
                               decoration: InputDecoration(
@@ -114,7 +134,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             TextField(
                               controller: dateOfBirthController,
                               style: TextStyle(
-                                fontSize: 23,
+                                fontSize: 21,
                               ),
                               cursorColor: CustomTheme.primary,
                               decoration: InputDecoration(
@@ -164,7 +184,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                               ? Colors.black
                                               : Colors.black54,
                                           fontWeight: FontWeight.normal,
-                                          fontSize: 23),
+                                          fontSize: 21),
                                     ),
                                   ),
                                   GestureDetector(
@@ -184,7 +204,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                               ? Colors.black
                                               : Colors.black54,
                                           fontWeight: FontWeight.normal,
-                                          fontSize: 23),
+                                          fontSize: 21),
                                     ),
                                   ),
                                   GestureDetector(
@@ -204,7 +224,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                               ? Colors.black
                                               : Colors.black54,
                                           fontWeight: FontWeight.normal,
-                                          fontSize: 23),
+                                          fontSize: 21),
                                     ),
                                   ),
                                 ],
@@ -239,7 +259,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                               height: MediaQuery.of(context).size.height * 0.07,
                               child: Center(
                                 child: Text(
-                                  'Submit',
+                                  'SUBMIT',
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -253,7 +273,10 @@ class ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   )
-                : CircularProgressIndicator();
+                : Center(
+                    child: CircularProgressIndicator(
+                    color: CustomTheme.primary,
+                  ));
           }),
     );
   }
