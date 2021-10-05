@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:chat_app_1/constants/theme.dart';
 import 'package:chat_app_1/controller/message_controller.dart';
@@ -10,6 +11,8 @@ import 'package:chat_app_1/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:intl/intl.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -27,6 +30,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
   int gender = 0;
+  String? imageAddress;
 
   @override
   void initState() {
@@ -60,6 +64,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   (snapshot.data as DocumentSnapshot).get("DateOfBirth");
               gender =
                   int.parse((snapshot.data as DocumentSnapshot).get("Gender"));
+              imageAddress = signInController.user!.photoURL;
             }
             return snapshot.hasData
                 ? Padding(
@@ -74,9 +79,37 @@ class ProfileScreenState extends State<ProfileScreen> {
                             onTap: () async {
                               File? imageFile = await Utils.imageToFile();
                               if (imageFile != null) {
-
                                 print(imageFile.absolute.path);
-                                
+                                File file = File(imageFile.absolute.path);
+
+                                try {
+                                  firebase_storage.TaskSnapshot task =
+                                      await firebase_storage
+                                          .FirebaseStorage.instance
+                                          .ref(
+                                              'uploads/${signInController.user!.uid}.png')
+                                          .putFile(file);
+
+                                  String downloadURL = await firebase_storage
+                                      .FirebaseStorage.instance
+                                      .ref(
+                                          'uploads/${signInController.user!.uid}.png')
+                                      .getDownloadURL();
+                                  print(downloadURL);
+                                  await signInController.user!
+                                      .updatePhotoURL(downloadURL);
+
+                                  setState(() {
+                                    imageAddress = downloadURL +
+                                        "#" +
+                                        DateFormat('yyyyddMMHHmm')
+                                            .format(DateTime.now());
+                                    print(imageAddress);
+                                  });
+                                } on FirebaseException catch (e) {
+                                  // e.g, e.code == 'canceled'
+                                }
+
                                 // showProgress(context);
                                 // var stringResponse = await editProfileController
                                 //     .uploadProfilePicture(imageFile);
@@ -90,7 +123,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                               radius: 60,
                               backgroundColor: CustomTheme.primary,
                               backgroundImage: NetworkImage(
-                                'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg',
+                                imageAddress == null
+                                    ? 'https://static.projectmanagement.com/images/profile-photos/47440204_070121020946_p.jpg'
+                                    : imageAddress!,
                               ),
                             ),
                           ),
